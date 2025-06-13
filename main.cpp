@@ -15,7 +15,7 @@ void EnterNumbersToTab(int *tab) {
 void PrintTab(const int *tab) {
 
     for(int i = 0; i<10; i++) {
-        printf("%d\t", *(tab+i));
+        printf("[%d]=%d\t", i, *(tab+i));
     }
     printf("\n");
 }
@@ -95,19 +95,83 @@ float SearchMedian(const int *tab) {
     return median;
 }
 
+void EditNumberByIndex(int *tab) {
+    printf("Index of number: ");
+
+    int ind;
+    scanf("%d", &ind);
+
+    if (ind < 0 || ind > 9) {
+        printf("ERROR\n");
+    }
+    else {
+        printf("New value: ");
+        scanf("%d", tab + ind);
+    }
+}
+
+
+void menu(){
+    printf("0. Exit\n");
+    printf("1. Print an array\n");
+    printf("2. Enter numbers to array\n");
+    printf("3. Print MIN value\n");
+    printf("4. Print MAX value\n");
+    printf("5. Print average value\n");
+    printf("6. Print median value\n");
+    printf("7. Edit number\n\n");
+
+
+    printf("\tSelect an option: ");
+
+}
+
 int main() {
 
-    int numbers[LENGTH];
+    printf("Simple array program\n");
+
+    int numbers[LENGTH] = {0,0,0,0,0,0,0,0,0,0};
+
+    int option;
+
+    do{
+        menu();
+        scanf("%d", &option);
+
+        switch (option) {
+            case 0:
+                break;
+            case 1:
+                PrintTab(numbers);
+                break;
+            case 2:
+                EnterNumbersToTab(numbers);
+                break;
+            case 3:
+                printf("Min= %d \n", SearchMin(numbers));
+                break;
+            case 4:
+                printf("Max= %d \n", SearchMax(numbers));
+                break;
+            case 5:
+                printf("Average= %.2f\n", CalculateAverage(numbers));
+                break;
+            case 6:
+                printf("Median= %.2f\n", SearchMedian(numbers));
+                break;
+            case 7:
+                EditNumberByIndex(numbers);
+                break;
+            default:
+                printf("No such option. Try again\n\n");
 
 
-    EnterNumbersToTab(numbers);
+        }
+        puts("");
 
-    PrintTab(numbers);
+    }while(option != 0);
 
-    printf("Min= %d \n", SearchMin(numbers));
-    printf("Max= %d \n", SearchMax(numbers));
-    printf("Average= %.2f\n", CalculateAverage(numbers));
-    printf("Median= %.2f", SearchMedian(numbers));
 
     return 0;
+
 }
